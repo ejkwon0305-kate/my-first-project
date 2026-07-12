@@ -23,6 +23,21 @@
     align-items: center;
     justify-content: center;
     padding: 24px;
+    transition: background 0.3s ease;
+  }
+
+  /* 카드가 화이트 모드일 때: 바깥 배경은 어두운 톤 */
+  body[data-theme="light"] {
+    --page-bg-start: #05060a;
+    --page-bg-end: #1a1d29;
+    --footer-text: #cbd0e0;
+  }
+
+  /* 카드가 다크 모드일 때: 바깥 배경은 밝은 톤 */
+  body[data-theme="dark"] {
+    --page-bg-start: #ffffff;
+    --page-bg-end: #f0f1f7;
+    --footer-text: #6b7280;
   }
 
   .theme-toggle {
@@ -198,6 +213,7 @@
   <script>
     (function () {
       var root = document.querySelector('.card');
+      var body = document.body;
       var toggle = document.getElementById('themeToggle');
       var icon = document.getElementById('themeIcon');
       var label = document.getElementById('themeLabel');
@@ -207,6 +223,7 @@
 
       function applyTheme(t) {
         root.setAttribute('data-theme', t);
+        body.setAttribute('data-theme', t);
         if (t === 'light') {
           icon.textContent = '☀️';
           label.textContent = '화이트 모드';
