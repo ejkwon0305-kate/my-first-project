@@ -17,9 +17,9 @@
     --border: #eeeeee;
     --icon-bg: #f1f2fe;
     --footer-text: #cbd0e0;
-    --toggle-bg: rgba(255, 255, 255, 0.12);
-    --toggle-border: rgba(255, 255, 255, 0.3);
-    --toggle-text: #ffffff;
+    --toggle-bg: rgba(31, 36, 48, 0.06);
+    --toggle-border: rgba(31, 36, 48, 0.15);
+    --toggle-text: #1f2430;
   }
 
   :root[data-theme="light"] {
@@ -51,7 +51,7 @@
   }
 
   .theme-toggle {
-    position: fixed;
+    position: absolute;
     top: 20px;
     right: 20px;
     display: flex;
@@ -73,6 +73,7 @@
   }
 
   .card {
+    position: relative;
     background: var(--card-bg);
     border-radius: 20px;
     max-width: 480px;
@@ -165,12 +166,12 @@
 </style>
 </head>
 <body>
-  <button class="theme-toggle" id="themeToggle" type="button" aria-label="다크/화이트 모드 전환">
-    <span id="themeIcon">🌙</span>
-    <span id="themeLabel">다크 모드</span>
-  </button>
-
   <main class="card">
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="다크/화이트 모드 전환">
+      <span id="themeIcon">🌙</span>
+      <span id="themeLabel">다크 모드</span>
+    </button>
+
     <div class="avatar">권</div>
     <h1>권은정</h1>
     <p class="role">Frontend Developer</p>
