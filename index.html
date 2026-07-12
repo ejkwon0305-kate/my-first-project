@@ -8,33 +8,9 @@
   :root {
     --page-bg-start: #0f1115;
     --page-bg-end: #232946;
-    --card-bg: #ffffff;
-    --card-shadow: rgba(0, 0, 0, 0.35);
     --accent: #4f46e5;
     --accent-light: #818cf8;
-    --text: #1f2430;
-    --muted: #6b7280;
-    --border: #eeeeee;
-    --icon-bg: #f1f2fe;
     --footer-text: #cbd0e0;
-    --toggle-bg: rgba(31, 36, 48, 0.06);
-    --toggle-border: rgba(31, 36, 48, 0.15);
-    --toggle-text: #1f2430;
-  }
-
-  :root[data-theme="light"] {
-    --page-bg-start: #eef0ff;
-    --page-bg-end: #f7f8fc;
-    --card-bg: #ffffff;
-    --card-shadow: rgba(31, 36, 48, 0.12);
-    --text: #1f2430;
-    --muted: #6b7280;
-    --border: #eeeeee;
-    --icon-bg: #f1f2fe;
-    --footer-text: #6b7280;
-    --toggle-bg: rgba(31, 36, 48, 0.06);
-    --toggle-border: rgba(31, 36, 48, 0.15);
-    --toggle-text: #1f2430;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -47,7 +23,6 @@
     align-items: center;
     justify-content: center;
     padding: 24px;
-    transition: background 0.3s ease;
   }
 
   .theme-toggle {
@@ -73,6 +48,16 @@
   }
 
   .card {
+    --card-bg: #ffffff;
+    --card-shadow: rgba(31, 36, 48, 0.12);
+    --text: #1f2430;
+    --muted: #6b7280;
+    --border: #eeeeee;
+    --icon-bg: #f1f2fe;
+    --toggle-bg: rgba(31, 36, 48, 0.06);
+    --toggle-border: rgba(31, 36, 48, 0.15);
+    --toggle-text: #1f2430;
+
     position: relative;
     background: var(--card-bg);
     border-radius: 20px;
@@ -82,6 +67,18 @@
     box-shadow: 0 20px 60px var(--card-shadow);
     text-align: center;
     transition: background 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card[data-theme="dark"] {
+    --card-bg: #1b1e2b;
+    --card-shadow: rgba(0, 0, 0, 0.45);
+    --text: #f5f6fa;
+    --muted: #a7acc0;
+    --border: #333a55;
+    --icon-bg: #262b40;
+    --toggle-bg: rgba(255, 255, 255, 0.08);
+    --toggle-border: rgba(255, 255, 255, 0.2);
+    --toggle-text: #f5f6fa;
   }
 
   .avatar {
@@ -200,7 +197,7 @@
 
   <script>
     (function () {
-      var root = document.documentElement;
+      var root = document.querySelector('.card');
       var toggle = document.getElementById('themeToggle');
       var icon = document.getElementById('themeIcon');
       var label = document.getElementById('themeLabel');
