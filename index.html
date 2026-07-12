@@ -6,12 +6,35 @@
 <title>권은정 | 자기소개</title>
 <style>
   :root {
-    --bg: #0f1115;
+    --page-bg-start: #0f1115;
+    --page-bg-end: #232946;
     --card-bg: #ffffff;
+    --card-shadow: rgba(0, 0, 0, 0.35);
     --accent: #4f46e5;
     --accent-light: #818cf8;
     --text: #1f2430;
     --muted: #6b7280;
+    --border: #eeeeee;
+    --icon-bg: #f1f2fe;
+    --footer-text: #cbd0e0;
+    --toggle-bg: rgba(255, 255, 255, 0.12);
+    --toggle-border: rgba(255, 255, 255, 0.3);
+    --toggle-text: #ffffff;
+  }
+
+  :root[data-theme="light"] {
+    --page-bg-start: #eef0ff;
+    --page-bg-end: #f7f8fc;
+    --card-bg: #ffffff;
+    --card-shadow: rgba(31, 36, 48, 0.12);
+    --text: #1f2430;
+    --muted: #6b7280;
+    --border: #eeeeee;
+    --icon-bg: #f1f2fe;
+    --footer-text: #6b7280;
+    --toggle-bg: rgba(31, 36, 48, 0.06);
+    --toggle-border: rgba(31, 36, 48, 0.15);
+    --toggle-text: #1f2430;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -19,11 +42,34 @@
   body {
     min-height: 100vh;
     font-family: "Pretendard", "Apple SD Gothic Neo", "Segoe UI", sans-serif;
-    background: linear-gradient(135deg, #0f1115 0%, #232946 100%);
+    background: linear-gradient(135deg, var(--page-bg-start) 0%, var(--page-bg-end) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 24px;
+    transition: background 0.3s ease;
+  }
+
+  .theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: var(--toggle-bg);
+    border: 1px solid var(--toggle-border);
+    color: var(--toggle-text);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  }
+
+  .theme-toggle:hover {
+    filter: brightness(1.1);
   }
 
   .card {
@@ -32,8 +78,9 @@
     max-width: 480px;
     width: 100%;
     padding: 48px 40px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 20px 60px var(--card-shadow);
     text-align: center;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
   }
 
   .avatar {
@@ -75,7 +122,7 @@
     flex-direction: column;
     gap: 10px;
     text-align: left;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--border);
     padding-top: 24px;
   }
 
@@ -92,7 +139,7 @@
     width: 32px;
     height: 32px;
     border-radius: 8px;
-    background: #f1f2fe;
+    background: var(--icon-bg);
     color: var(--accent);
     display: flex;
     align-items: center;
@@ -112,12 +159,17 @@
   footer {
     margin-top: 32px;
     font-size: 12px;
-    color: #cbd0e0;
+    color: var(--footer-text);
     text-align: center;
   }
 </style>
 </head>
 <body>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="다크/화이트 모드 전환">
+    <span id="themeIcon">🌙</span>
+    <span id="themeLabel">다크 모드</span>
+  </button>
+
   <main class="card">
     <div class="avatar">권</div>
     <h1>권은정</h1>
@@ -144,5 +196,36 @@
   </main>
 
   <footer>&copy; 2026 Kwon Eunjeong. All rights reserved.</footer>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var toggle = document.getElementById('themeToggle');
+      var icon = document.getElementById('themeIcon');
+      var label = document.getElementById('themeLabel');
+      var stored = localStorage.getItem('theme');
+      var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      var theme = stored || (prefersLight ? 'light' : 'dark');
+
+      function applyTheme(t) {
+        root.setAttribute('data-theme', t);
+        if (t === 'light') {
+          icon.textContent = '☀️';
+          label.textContent = '화이트 모드';
+        } else {
+          icon.textContent = '🌙';
+          label.textContent = '다크 모드';
+        }
+      }
+
+      applyTheme(theme);
+
+      toggle.addEventListener('click', function () {
+        theme = theme === 'light' ? 'dark' : 'light';
+        applyTheme(theme);
+        localStorage.setItem('theme', theme);
+      });
+    })();
+  </script>
 </body>
 </html>
